@@ -41,19 +41,19 @@ public class ScrollHandler extends Group {
         enemies = new ArrayList<Enemy>();
 
         // Definim una mida aleatòria entre el mínim i el màxim
-        float newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID) * 34;
+        float newSize = Methods.randomFloat(Settings.MIN_ENEMY, Settings.MAX_ENEMY) * 34;
 
         // Afegim el primer Enemy a l'Array i al grup
-        Enemy enemy = new Enemy(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
+        Enemy enemy = new Enemy(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ENEMY_SPEED);
         enemies.add(enemy);
         addActor(enemy);
 
         // Des del segon fins l'últim enemye
         for (int i = 1; i < numEnemys; i++) {
             // Creem la mida al·leatòria
-            newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID) * 34;
+            newSize = Methods.randomFloat(Settings.MIN_ENEMY, Settings.MAX_ENEMY) * 34;
             // Afegim l'enemy.
-            enemy = new Enemy(enemies.get(enemies.size() - 1).getTailX() + Settings.ASTEROID_GAP, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
+            enemy = new Enemy(enemies.get(enemies.size() - 1).getTailX() + Settings.ENEMY_GAP, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ENEMY_SPEED);
             // Afegim l'enemye a l'ArrayList
             enemies.add(enemy);
             // Afegim l'enemye al grup d'actors
@@ -79,9 +79,9 @@ public class ScrollHandler extends Group {
             Enemy enemy = enemies.get(i);
             if (enemy.isLeftOfScreen()) {
                 if (i == 0) {
-                    enemy.reset(enemies.get(enemies.size() - 1).getTailX() + Settings.ASTEROID_GAP);
+                    enemy.reset(enemies.get(enemies.size() - 1).getTailX() + Settings.ENEMY_GAP);
                 } else {
-                    enemy.reset(enemies.get(i - 1).getTailX() + Settings.ASTEROID_GAP);
+                    enemy.reset(enemies.get(i - 1).getTailX() + Settings.ENEMY_GAP);
                 }
             }
         }
@@ -105,7 +105,7 @@ public class ScrollHandler extends Group {
         // Calculem les noves posicions de la resta d'enemies.
         for (int i = 1; i < enemies.size(); i++) {
 
-            enemies.get(i).reset(enemies.get(i - 1).getTailX() + Settings.ASTEROID_GAP);
+            enemies.get(i).reset(enemies.get(i - 1).getTailX() + Settings.ENEMY_GAP);
 
         }
     }

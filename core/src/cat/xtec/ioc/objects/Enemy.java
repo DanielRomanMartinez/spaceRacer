@@ -69,7 +69,7 @@ public class Enemy extends Scrollable {
     public void reset(float newX) {
         super.reset(newX);
         // Obtenim un número al·leatori entre MIN i MAX
-        float newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID);
+        float newSize = Methods.randomFloat(Settings.MIN_ENEMY, Settings.MAX_ENEMY);
         // Modificarem l'alçada i l'amplada segons l'al·leatori anterior
         width = height = 34 * newSize;
         // La posició serà un valor aleatòri entre 0 i l'alçada de l'aplicació menys l'alçada

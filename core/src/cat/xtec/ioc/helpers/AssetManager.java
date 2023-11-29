@@ -15,7 +15,7 @@ public class AssetManager {
     public static Texture sheet;
 
     // Nau i fons
-    public static TextureRegion spacecraft, spacecraftDown, spacecraftUp, background;
+    public static TextureRegion warrior, warriorDown, warriorUp, background;
 
     // Asteroid
     public static TextureRegion[] asteroid;
@@ -37,18 +37,18 @@ public class AssetManager {
 
     public static void load() {
         // Carreguem les textures i li apliquem el mètode d'escalat 'nearest'
-        sheet = new Texture(Gdx.files.internal("sheet.png"));
+        sheet = new Texture(Gdx.files.internal("warrior_sheet.png"));
         sheet.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
         // Sprites de la nau
-        spacecraft = new TextureRegion(sheet, 0, 0, 36, 15);
-        spacecraft.flip(false, true);
+        warrior = new TextureRegion(sheet, 0, 0, 36, 15);
+        warrior.flip(false, true);
 
-        spacecraftUp = new TextureRegion(sheet, 36, 0, 36, 15);
-        spacecraftUp.flip(false, true);
+        warriorUp = new TextureRegion(sheet, 36, 0, 36, 15);
+        warriorUp.flip(false, true);
 
-        spacecraftDown = new TextureRegion(sheet, 72, 0, 36, 15);
-        spacecraftDown.flip(false, true);
+        warriorDown = new TextureRegion(sheet, 72, 0, 36, 15);
+        warriorDown.flip(false, true);
 
 
 

@@ -5,7 +5,7 @@ import com.badlogic.gdx.Game;
 import cat.xtec.ioc.helpers.AssetManager;
 import cat.xtec.ioc.screens.SplashScreen;
 
-public class SpaceRace extends Game {
+public class WarriorRace extends Game {
 
     @Override
     public void create() {

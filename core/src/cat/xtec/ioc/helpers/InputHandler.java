@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import cat.xtec.ioc.objects.Spacecraft;
+import cat.xtec.ioc.objects.Warrior;
 import cat.xtec.ioc.screens.GameScreen;
 
 public class InputHandler implements InputProcessor {
@@ -14,7 +14,7 @@ public class InputHandler implements InputProcessor {
     // Enter per a la gesitó del moviment d'arrastrar
     int previousY = 0;
     // Objectes necessaris
-    private Spacecraft spacecraft;
+    private Warrior warrior;
     private GameScreen screen;
     private Vector2 stageCoord;
 
@@ -24,7 +24,7 @@ public class InputHandler implements InputProcessor {
 
         // Obtenim tots els elements necessaris
         this.screen = screen;
-        spacecraft = screen.getSpacecraft();
+        warrior = screen.getWarrior();
         stage = screen.getStage();
 
     }
@@ -77,7 +77,7 @@ public class InputHandler implements InputProcessor {
 
         // Quan deixem anar el dit acabem un moviment
         // i posem la nau en l'estat normal
-        spacecraft.goStraight();
+        warrior.goStraight();
         return true;
     }
 
@@ -95,10 +95,10 @@ public class InputHandler implements InputProcessor {
             // Si la Y és major que la que tenim
             // guardada és que va cap avall
             if (previousY < screenY) {
-                spacecraft.goDown();
+                warrior.goDown();
             } else {
                 // En cas contrari cap a dalt
-                spacecraft.goUp();
+                warrior.goUp();
             }
         // Guardem la posició de la Y
         previousY = screenY;

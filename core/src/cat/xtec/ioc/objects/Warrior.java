@@ -10,14 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import cat.xtec.ioc.helpers.AssetManager;
 import cat.xtec.ioc.utils.Settings;
 
-public class Spacecraft extends Actor {
+public class Warrior extends Actor {
 
-    // Distintes posicions de la spacecraft, recta, pujant i baixant
-    public static final int SPACECRAFT_STRAIGHT = 0;
-    public static final int SPACECRAFT_UP = 1;
-    public static final int SPACECRAFT_DOWN = 2;
+    // Distintes posicions de la warrior, recta, pujant i baixant
+    public static final int WARRIOR_STRAIGHT = 0;
+    public static final int WARRIOR_UP = 1;
+    public static final int WARRIOR_DOWN = 2;
 
-    // Paràmetres de la spacecraft
+    // Paràmetres de la warrior
     private Vector2 position;
     private int width, height;
     private int direction;
@@ -26,15 +26,15 @@ public class Spacecraft extends Actor {
 
 
 
-    public Spacecraft(float x, float y, int width, int height) {
+    public Warrior(float x, float y, int width, int height) {
 
         // Inicialitzem els arguments segons la crida del constructor
         this.width = width;
         this.height = height;
         position = new Vector2(x, y);
 
-        // Inicialitzem la spacecraft a l'estat normal
-        direction = SPACECRAFT_STRAIGHT;
+        // Inicialitzem la warrior a l'estat normal
+        direction = WARRIOR_STRAIGHT;
 
         // Creem el rectangle de col·lisions
         collisionRect = new Rectangle();
@@ -52,19 +52,19 @@ public class Spacecraft extends Actor {
     public void act(float delta) {
         super.act(delta);
 
-        // Movem la spacecraft depenent de la direcció controlant que no surti de la pantalla
+        // Movem la warrior depenent de la direcció controlant que no surti de la pantalla
         switch (direction) {
-            case SPACECRAFT_UP:
-                if (this.position.y - Settings.SPACECRAFT_VELOCITY * delta >= 0) {
-                    this.position.y -= Settings.SPACECRAFT_VELOCITY * delta;
+            case WARRIOR_UP:
+                if (this.position.y - Settings.WARRIOR_VELOCITY * delta >= 0) {
+                    this.position.y -= Settings.WARRIOR_VELOCITY * delta;
                 }
                 break;
-            case SPACECRAFT_DOWN:
-                if (this.position.y + height + Settings.SPACECRAFT_VELOCITY * delta <= Settings.GAME_HEIGHT) {
-                    this.position.y += Settings.SPACECRAFT_VELOCITY * delta;
+            case WARRIOR_DOWN:
+                if (this.position.y + height + Settings.WARRIOR_VELOCITY * delta <= Settings.GAME_HEIGHT) {
+                    this.position.y += Settings.WARRIOR_VELOCITY * delta;
                 }
                 break;
-            case SPACECRAFT_STRAIGHT:
+            case WARRIOR_STRAIGHT:
                 break;
         }
 
@@ -91,50 +91,50 @@ public class Spacecraft extends Actor {
         return height;
     }
 
-    // Canviem la direcció de la spacecraft: Puja
+    // Canviem la direcció de la warrior: Puja
     public void goUp() {
-        direction = SPACECRAFT_UP;
+        direction = WARRIOR_UP;
     }
 
-    // Canviem la direcció de la spacecraft: Baixa
+    // Canviem la direcció de la warrior: Baixa
     public void goDown() {
-        direction = SPACECRAFT_DOWN;
+        direction = WARRIOR_DOWN;
     }
 
-    // Posem la spacecraft al seu estat original
+    // Posem la warrior al seu estat original
     public void goStraight() {
-        direction = SPACECRAFT_STRAIGHT;
+        direction = WARRIOR_STRAIGHT;
     }
 
-    // Obtenim el TextureRegion depenent de la posició de la spacecraft
-    public TextureRegion getSpacecraftTexture() {
+    // Obtenim el TextureRegion depenent de la posició de la warrior
+    public TextureRegion getWarriorTexture() {
 
         switch (direction) {
 
-            case SPACECRAFT_STRAIGHT:
-                return AssetManager.spacecraft;
-            case SPACECRAFT_UP:
-                return AssetManager.spacecraftUp;
-            case SPACECRAFT_DOWN:
-                return AssetManager.spacecraftDown;
+            case WARRIOR_STRAIGHT:
+                return AssetManager.warrior;
+            case WARRIOR_UP:
+                return AssetManager.warriorUp;
+            case WARRIOR_DOWN:
+                return AssetManager.warriorDown;
             default:
-                return AssetManager.spacecraft;
+                return AssetManager.warrior;
         }
     }
 
     public void reset() {
 
         // La posem a la posició inicial i a l'estat normal
-        position.x = Settings.SPACECRAFT_STARTX;
-        position.y = Settings.SPACECRAFT_STARTY;
-        direction = SPACECRAFT_STRAIGHT;
+        position.x = Settings.WARRIOR_STARTX;
+        position.y = Settings.WARRIOR_STARTY;
+        direction = WARRIOR_STRAIGHT;
         collisionRect = new Rectangle();
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(getSpacecraftTexture(), position.x, position.y, width, height);
+        batch.draw(getWarriorTexture(), position.x, position.y, width, height);
     }
 
     public Rectangle getCollisionRect() {

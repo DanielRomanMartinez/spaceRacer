@@ -87,10 +87,10 @@ public class Asteroid extends Scrollable {
     }
 
     // Retorna true si hi ha col·lisió
-    public boolean collides(Spacecraft nau) {
+    public boolean collides(Warrior nau) {
 
         if (position.x <= nau.getX() + nau.getWidth()) {
-            // Comprovem si han col·lisionat sempre i quan l'asteroid estigui a la mateixa alçada que la spacecraft
+            // Comprovem si han col·lisionat sempre i quan l'asteroid estigui a la mateixa alçada que la warrior
             return (Intersector.overlaps(collisionCircle, nau.getCollisionRect()));
         }
         return false;

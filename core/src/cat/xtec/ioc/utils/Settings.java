@@ -7,11 +7,11 @@ public class Settings {
     public static final int GAME_HEIGHT = 135;
 
     // Propietats de la nau
-    public static final float SPACECRAFT_VELOCITY = 75;
-    public static final int SPACECRAFT_WIDTH = 36;
-    public static final int SPACECRAFT_HEIGHT = 15;
-    public static final float SPACECRAFT_STARTX = 20;
-    public static final float SPACECRAFT_STARTY = GAME_HEIGHT/2 - SPACECRAFT_HEIGHT/2;
+    public static final float WARRIOR_VELOCITY = 75;
+    public static final int WARRIOR_WIDTH = 36;
+    public static final int WARRIOR_HEIGHT = 15;
+    public static final float WARRIOR_STARTX = 20;
+    public static final float WARRIOR_STARTY = GAME_HEIGHT/2 - WARRIOR_HEIGHT/2;
 
     // Rang de valors per canviar la mida de l'asteroide.
     public static final float MAX_ASTEROID = 1.5f;

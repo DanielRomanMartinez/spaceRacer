@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import cat.xtec.ioc.SpaceRace;
+import cat.xtec.ioc.WarriorRace;
 import cat.xtec.ioc.helpers.AssetManager;
 import cat.xtec.ioc.utils.Settings;
 
@@ -19,13 +19,13 @@ import cat.xtec.ioc.utils.Settings;
 public class SplashScreen implements Screen {
 
     private Stage stage;
-    private SpaceRace game;
+    private WarriorRace game;
 
     private Label.LabelStyle textStyle;
     private Label textLbl;
 
 
-    public SplashScreen(SpaceRace game) {
+    public SplashScreen(WarriorRace game) {
 
         this.game = game;
 
@@ -46,7 +46,7 @@ public class SplashScreen implements Screen {
 
         // Creem l'estil de l'etiqueta i l'etiqueta
         textStyle = new Label.LabelStyle(AssetManager.font, null);
-        textLbl = new Label("SpaceRace", textStyle);
+        textLbl = new Label("WarriorRace", textStyle);
 
         // Creem el contenidor necessari per aplicar-li les accions
         Container container = new Container(textLbl);
@@ -59,11 +59,11 @@ public class SplashScreen implements Screen {
         stage.addActor(container);
 
         // Creem la imatge de la nau i li assignem el moviment en horitzontal
-        Image spacecraft = new Image(AssetManager.spacecraft);
+        Image warrior = new Image(AssetManager.warrior);
         float y = Settings.GAME_HEIGHT / 2 + textLbl.getHeight();
-        spacecraft.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.moveTo(0 - spacecraft.getWidth(), y), Actions.moveTo(Settings.GAME_WIDTH, y, 5))));
+        warrior.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.moveTo(0 - warrior.getWidth(), y), Actions.moveTo(Settings.GAME_WIDTH, y, 5))));
 
-        stage.addActor(spacecraft);
+        stage.addActor(warrior);
 
 
     }

@@ -16,7 +16,7 @@ import cat.xtec.ioc.helpers.AssetManager;
 import cat.xtec.ioc.helpers.InputHandler;
 import cat.xtec.ioc.objects.Asteroid;
 import cat.xtec.ioc.objects.ScrollHandler;
-import cat.xtec.ioc.objects.Spacecraft;
+import cat.xtec.ioc.objects.Warrior;
 import cat.xtec.ioc.utils.Settings;
 
 
@@ -35,7 +35,7 @@ public class GameScreen implements Screen {
 
     // Objectes necessaris
     private Stage stage;
-    private Spacecraft spacecraft;
+    private Warrior warrior;
     private ScrollHandler scrollHandler;
 
     // Encarregats de dibuixar elements per pantalla
@@ -64,14 +64,14 @@ public class GameScreen implements Screen {
         batch = stage.getBatch();
 
         // Creem la nau i la resta d'objectes
-        spacecraft = new Spacecraft(Settings.SPACECRAFT_STARTX, Settings.SPACECRAFT_STARTY, Settings.SPACECRAFT_WIDTH, Settings.SPACECRAFT_HEIGHT);
+        warrior = new Warrior(Settings.WARRIOR_STARTX, Settings.WARRIOR_STARTY, Settings.WARRIOR_WIDTH, Settings.WARRIOR_HEIGHT);
         scrollHandler = new ScrollHandler();
 
         // Afegim els actors a l'stage
         stage.addActor(scrollHandler);
-        stage.addActor(spacecraft);
+        stage.addActor(warrior);
         // Donem nom a l'Actor
-        spacecraft.setName("spacecraft");
+        warrior.setName("warrior");
 
         // Iniciem el GlyphLayout
         textLayout = new GlyphLayout();
@@ -100,7 +100,7 @@ public class GameScreen implements Screen {
         shapeRenderer.setColor(new Color(0, 1, 0, 1));
 
         // Pintem la nau
-        shapeRenderer.rect(spacecraft.getX(), spacecraft.getY(), spacecraft.getWidth(), spacecraft.getHeight());
+        shapeRenderer.rect(warrior.getX(), warrior.getY(), warrior.getWidth(), warrior.getHeight());
 
         // Recollim tots els Asteroid
         ArrayList<Asteroid> asteroids = scrollHandler.getAsteroids();
@@ -173,10 +173,10 @@ public class GameScreen implements Screen {
     private void updateRunning(float delta) {
         stage.act(delta);
 
-        if (scrollHandler.collides(spacecraft)) {
+        if (scrollHandler.collides(warrior)) {
             // Si hi ha hagut col·lisió: Reproduïm l'explosió i posem l'estat a GameOver
             AssetManager.explosionSound.play();
-            stage.getRoot().findActor("spacecraft").remove();
+            stage.getRoot().findActor("warrior").remove();
             textLayout.setText(AssetManager.font, "Game Over :'(");
             currentState = GameState.GAMEOVER;
         }
@@ -188,7 +188,7 @@ public class GameScreen implements Screen {
         batch.begin();
         AssetManager.font.draw(batch, textLayout, (Settings.GAME_WIDTH - textLayout.width) / 2, (Settings.GAME_HEIGHT - textLayout.height) / 2);
         // Si hi ha hagut col·lisió: Reproduïm l'explosió i posem l'estat a GameOver
-        batch.draw((TextureRegion) AssetManager.explosionAnim.getKeyFrame(explosionTime, false), (spacecraft.getX() + spacecraft.getWidth() / 2) - 32, spacecraft.getY() + spacecraft.getHeight() / 2 - 32, 64, 64);
+        batch.draw((TextureRegion) AssetManager.explosionAnim.getKeyFrame(explosionTime, false), (warrior.getX() + warrior.getWidth() / 2) - 32, warrior.getY() + warrior.getHeight() / 2 - 32, 64, 64);
         batch.end();
 
         explosionTime += delta;
@@ -200,14 +200,14 @@ public class GameScreen implements Screen {
         // Posem el text d'inici
         textLayout.setText(AssetManager.font, "Are you\nready?");
         // Cridem als restart dels elements.
-        spacecraft.reset();
+        warrior.reset();
         scrollHandler.reset();
 
         // Posem l'estat a 'Ready'
         currentState = GameState.READY;
 
         // Afegim la nau a l'stage
-        stage.addActor(spacecraft);
+        stage.addActor(warrior);
 
         // Posem a 0 les variables per controlar el temps jugat i l'animació de l'explosió
         explosionTime = 0.0f;
@@ -240,8 +240,8 @@ public class GameScreen implements Screen {
 
     }
 
-    public Spacecraft getSpacecraft() {
-        return spacecraft;
+    public Warrior getWarrior() {
+        return warrior;
     }
 
     public Stage getStage() {

@@ -3,13 +3,13 @@ package cat.xtec.ioc.utils;
 public class Settings {
 
     // Mida del joc, s'escalarà segons la necessitat
-    public static final int GAME_WIDTH = 240;
-    public static final int GAME_HEIGHT = 135;
+    public static final int GAME_WIDTH = 384;
+    public static final int GAME_HEIGHT = 240;
 
     // Propietats de la nau
     public static final float WARRIOR_VELOCITY = 75;
-    public static final int WARRIOR_WIDTH = 36;
-    public static final int WARRIOR_HEIGHT = 15;
+    public static final int WARRIOR_WIDTH = 18;
+    public static final int WARRIOR_HEIGHT = 28;
     public static final float WARRIOR_STARTX = 20;
     public static final float WARRIOR_STARTY = GAME_HEIGHT/2 - WARRIOR_HEIGHT/2;
 

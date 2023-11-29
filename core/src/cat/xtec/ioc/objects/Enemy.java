@@ -28,7 +28,7 @@ public class Enemy extends Scrollable {
 
         /* Accions */
         r = new Random();
-        assetEnemy = r.nextInt(15);
+        assetEnemy = r.nextInt(3);
 
         setOrigin();
 
@@ -75,7 +75,7 @@ public class Enemy extends Scrollable {
         // La posició serà un valor aleatòri entre 0 i l'alçada de l'aplicació menys l'alçada
         position.y =  new Random().nextInt(Settings.GAME_HEIGHT - (int) height);
 
-        assetEnemy = r.nextInt(15);
+        assetEnemy = r.nextInt(3);
         setOrigin();
     }
 

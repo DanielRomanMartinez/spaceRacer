@@ -114,9 +114,9 @@ public class Warrior extends Actor {
             case WARRIOR_STRAIGHT:
                 return AssetManager.warrior;
             case WARRIOR_UP:
-                return AssetManager.warriorUp;
+                return AssetManager.warriorUp[0];
             case WARRIOR_DOWN:
-                return AssetManager.warriorDown;
+                return AssetManager.warriorDown[0];
             default:
                 return AssetManager.warrior;
         }

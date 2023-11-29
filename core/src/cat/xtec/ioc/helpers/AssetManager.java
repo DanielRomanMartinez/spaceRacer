@@ -17,9 +17,9 @@ public class AssetManager {
     // Nau i fons
     public static TextureRegion warrior, warriorDown, warriorUp, background;
 
-    // Asteroid
-    public static TextureRegion[] asteroid;
-    public static Animation asteroidAnim;
+    // Enemy
+    public static TextureRegion[] enemy;
+    public static Animation enemyAnim;
 
     // Explosió
     public static TextureRegion[] explosion;
@@ -52,20 +52,20 @@ public class AssetManager {
 
 
 
-        // Carreguem els 16 estats de l'asteroid
-        asteroid = new TextureRegion[16];
-        for (int i = 0; i < asteroid.length; i++) {
+        // Carreguem els 16 estats de l'enemy
+        enemy = new TextureRegion[16];
+        for (int i = 0; i < enemy.length; i++) {
 
-            asteroid[i] = new TextureRegion(sheet, i * 34, 15, 34, 34);
-          //  asteroid[i].flip(false, true);
+            enemy[i] = new TextureRegion(sheet, i * 34, 15, 34, 34);
+          //  enemy[i].flip(false, true);
 
         }
 
 
 
-        // Creem l'animació de l'asteroid i fem que s'executi contínuament en sentit anti-horari
-        asteroidAnim = new Animation(0.05f, asteroid);
-        asteroidAnim.setPlayMode(Animation.PlayMode.LOOP_REVERSED);
+        // Creem l'animació de l'enemy i fem que s'executi contínuament en sentit anti-horari
+        enemyAnim = new Animation(0.05f, enemy);
+        enemyAnim.setPlayMode(Animation.PlayMode.LOOP_REVERSED);
 
         // Creem els 16 estats de l'explosió
         explosion = new TextureRegion[16];

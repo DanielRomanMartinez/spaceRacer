@@ -13,9 +13,9 @@ public class ScrollHandler extends Group {
     // Fons de pantalla
     Background bg, bg_back;
 
-    // Asteroides
-    int numAsteroids;
-    private ArrayList<Asteroid> asteroids;
+    // Enemyes
+    int numEnemys;
+    private ArrayList<Enemy> enemies;
 
     // Objecte Random
     Random r;
@@ -34,30 +34,30 @@ public class ScrollHandler extends Group {
         // Creem l'objecte random
         r = new Random();
 
-        // Comencem amb 3 asteroids
-        numAsteroids = 3;
+        // Comencem amb 3 enemies
+        numEnemys = 3;
 
         // Creem l'ArrayList
-        asteroids = new ArrayList<Asteroid>();
+        enemies = new ArrayList<Enemy>();
 
         // Definim una mida aleatòria entre el mínim i el màxim
         float newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID) * 34;
 
-        // Afegim el primer Asteroid a l'Array i al grup
-        Asteroid asteroid = new Asteroid(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
-        asteroids.add(asteroid);
-        addActor(asteroid);
+        // Afegim el primer Enemy a l'Array i al grup
+        Enemy enemy = new Enemy(Settings.GAME_WIDTH, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
+        enemies.add(enemy);
+        addActor(enemy);
 
-        // Des del segon fins l'últim asteroide
-        for (int i = 1; i < numAsteroids; i++) {
+        // Des del segon fins l'últim enemye
+        for (int i = 1; i < numEnemys; i++) {
             // Creem la mida al·leatòria
             newSize = Methods.randomFloat(Settings.MIN_ASTEROID, Settings.MAX_ASTEROID) * 34;
-            // Afegim l'asteroid.
-            asteroid = new Asteroid(asteroids.get(asteroids.size() - 1).getTailX() + Settings.ASTEROID_GAP, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
-            // Afegim l'asteroide a l'ArrayList
-            asteroids.add(asteroid);
-            // Afegim l'asteroide al grup d'actors
-            addActor(asteroid);
+            // Afegim l'enemy.
+            enemy = new Enemy(enemies.get(enemies.size() - 1).getTailX() + Settings.ASTEROID_GAP, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ASTEROID_SPEED);
+            // Afegim l'enemye a l'ArrayList
+            enemies.add(enemy);
+            // Afegim l'enemye al grup d'actors
+            addActor(enemy);
         }
 
     }
@@ -74,14 +74,14 @@ public class ScrollHandler extends Group {
 
         }
 
-        for (int i = 0; i < asteroids.size(); i++) {
+        for (int i = 0; i < enemies.size(); i++) {
 
-            Asteroid asteroid = asteroids.get(i);
-            if (asteroid.isLeftOfScreen()) {
+            Enemy enemy = enemies.get(i);
+            if (enemy.isLeftOfScreen()) {
                 if (i == 0) {
-                    asteroid.reset(asteroids.get(asteroids.size() - 1).getTailX() + Settings.ASTEROID_GAP);
+                    enemy.reset(enemies.get(enemies.size() - 1).getTailX() + Settings.ASTEROID_GAP);
                 } else {
-                    asteroid.reset(asteroids.get(i - 1).getTailX() + Settings.ASTEROID_GAP);
+                    enemy.reset(enemies.get(i - 1).getTailX() + Settings.ASTEROID_GAP);
                 }
             }
         }
@@ -89,9 +89,9 @@ public class ScrollHandler extends Group {
 
     public boolean collides(Warrior nau) {
 
-        // Comprovem les col·lisions entre cada asteroid i la nau
-        for (Asteroid asteroid : asteroids) {
-            if (asteroid.collides(nau)) {
+        // Comprovem les col·lisions entre cada enemy i la nau
+        for (Enemy enemy : enemies) {
+            if (enemy.collides(nau)) {
                 return true;
             }
         }
@@ -100,17 +100,17 @@ public class ScrollHandler extends Group {
 
     public void reset() {
 
-        // Posem el primer asteroid fora de la pantalla per la dreta
-        asteroids.get(0).reset(Settings.GAME_WIDTH);
-        // Calculem les noves posicions de la resta d'asteroids.
-        for (int i = 1; i < asteroids.size(); i++) {
+        // Posem el primer enemy fora de la pantalla per la dreta
+        enemies.get(0).reset(Settings.GAME_WIDTH);
+        // Calculem les noves posicions de la resta d'enemies.
+        for (int i = 1; i < enemies.size(); i++) {
 
-            asteroids.get(i).reset(asteroids.get(i - 1).getTailX() + Settings.ASTEROID_GAP);
+            enemies.get(i).reset(enemies.get(i - 1).getTailX() + Settings.ASTEROID_GAP);
 
         }
     }
 
-    public ArrayList<Asteroid> getAsteroids() {
-        return asteroids;
+    public ArrayList<Enemy> getEnemys() {
+        return enemies;
     }
 }

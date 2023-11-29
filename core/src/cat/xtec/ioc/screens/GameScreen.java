@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import cat.xtec.ioc.helpers.AssetManager;
 import cat.xtec.ioc.helpers.InputHandler;
-import cat.xtec.ioc.objects.Asteroid;
+import cat.xtec.ioc.objects.Enemy;
 import cat.xtec.ioc.objects.ScrollHandler;
 import cat.xtec.ioc.objects.Warrior;
 import cat.xtec.ioc.utils.Settings;
@@ -102,13 +102,13 @@ public class GameScreen implements Screen {
         // Pintem la nau
         shapeRenderer.rect(warrior.getX(), warrior.getY(), warrior.getWidth(), warrior.getHeight());
 
-        // Recollim tots els Asteroid
-        ArrayList<Asteroid> asteroids = scrollHandler.getAsteroids();
-        Asteroid asteroid;
+        // Recollim tots els Enemy
+        ArrayList<Enemy> enemies = scrollHandler.getEnemys();
+        Enemy enemy;
 
-        for (int i = 0; i < asteroids.size(); i++) {
+        for (int i = 0; i < enemies.size(); i++) {
 
-            asteroid = asteroids.get(i);
+            enemy = enemies.get(i);
             switch (i) {
                 case 0:
                     shapeRenderer.setColor(1, 0, 0, 1);
@@ -123,7 +123,7 @@ public class GameScreen implements Screen {
                     shapeRenderer.setColor(1, 1, 1, 1);
                     break;
             }
-            shapeRenderer.circle(asteroid.getX() + asteroid.getWidth() / 2, asteroid.getY() + asteroid.getWidth() / 2, asteroid.getWidth() / 2);
+            shapeRenderer.circle(enemy.getX() + enemy.getWidth() / 2, enemy.getY() + enemy.getWidth() / 2, enemy.getWidth() / 2);
         }
         shapeRenderer.end();
     }

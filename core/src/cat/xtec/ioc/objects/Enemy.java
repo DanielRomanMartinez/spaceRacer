@@ -12,15 +12,15 @@ import cat.xtec.ioc.helpers.AssetManager;
 import cat.xtec.ioc.utils.Methods;
 import cat.xtec.ioc.utils.Settings;
 
-public class Asteroid extends Scrollable {
+public class Enemy extends Scrollable {
 
     private Circle collisionCircle;
 
     Random r;
 
-    int assetAsteroid;
+    int assetEnemy;
 
-    public Asteroid(float x, float y, float width, float height, float velocity) {
+    public Enemy(float x, float y, float width, float height, float velocity) {
         super(x, y, width, height, velocity);
 
         // Creem el cercle
@@ -28,7 +28,7 @@ public class Asteroid extends Scrollable {
 
         /* Accions */
         r = new Random();
-        assetAsteroid = r.nextInt(15);
+        assetEnemy = r.nextInt(15);
 
         setOrigin();
 
@@ -59,7 +59,7 @@ public class Asteroid extends Scrollable {
     public void act(float delta) {
         super.act(delta);
 
-        // Actualitzem el cercle de col·lisions (punt central de l'asteroid i el radi.
+        // Actualitzem el cercle de col·lisions (punt central de l'enemy i el radi.
         collisionCircle.set(position.x + width / 2.0f, position.y + width / 2.0f, width / 2.0f);
 
 
@@ -75,7 +75,7 @@ public class Asteroid extends Scrollable {
         // La posició serà un valor aleatòri entre 0 i l'alçada de l'aplicació menys l'alçada
         position.y =  new Random().nextInt(Settings.GAME_HEIGHT - (int) height);
 
-        assetAsteroid = r.nextInt(15);
+        assetEnemy = r.nextInt(15);
         setOrigin();
     }
 
@@ -83,14 +83,14 @@ public class Asteroid extends Scrollable {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(AssetManager.asteroid[assetAsteroid], position.x, position.y, this.getOriginX(), this.getOriginY(), width, height, this.getScaleX(), this.getScaleY(), this.getRotation());
+        batch.draw(AssetManager.enemy[assetEnemy], position.x, position.y, this.getOriginX(), this.getOriginY(), width, height, this.getScaleX(), this.getScaleY(), this.getRotation());
     }
 
     // Retorna true si hi ha col·lisió
     public boolean collides(Warrior nau) {
 
         if (position.x <= nau.getX() + nau.getWidth()) {
-            // Comprovem si han col·lisionat sempre i quan l'asteroid estigui a la mateixa alçada que la warrior
+            // Comprovem si han col·lisionat sempre i quan l'enemy estigui a la mateixa alçada que la warrior
             return (Intersector.overlaps(collisionCircle, nau.getCollisionRect()));
         }
         return false;

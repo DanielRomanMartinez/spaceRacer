@@ -13,7 +13,7 @@ public class Settings {
     public static final float WARRIOR_STARTX = 20;
     public static final float WARRIOR_STARTY = GAME_HEIGHT/2 - WARRIOR_HEIGHT/2;
 
-    // Rang de valors per canviar la mida de l'asteroide.
+    // Rang de valors per canviar la mida de l'enemye.
     public static final float MAX_ASTEROID = 1.5f;
     public static final float MIN_ASTEROID = 0.5f;
 

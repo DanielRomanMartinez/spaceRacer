@@ -1,6 +1,8 @@
 package cat.xtec.ioc.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
@@ -19,6 +21,8 @@ public class Enemy extends Scrollable {
     Random r;
 
     int assetEnemy;
+    private float explodeDeltaTime = 0;
+    private boolean isRemoved = false;
 
     public Enemy(float x, float y, float width, float height, float velocity) {
         super(x, y, width, height, velocity);
@@ -49,6 +53,11 @@ public class Enemy extends Scrollable {
 
     }
 
+    public void makeItExplode(){
+        collisionCircle = null;
+        explodeDeltaTime = Gdx.graphics.getDeltaTime();
+    }
+
     public void setOrigin() {
 
         this.setOrigin(width/2 + 1, height/2);
@@ -60,7 +69,7 @@ public class Enemy extends Scrollable {
         super.act(delta);
 
         // Actualitzem el cercle de col·lisions (punt central de l'enemy i el radi.
-        collisionCircle.set(position.x + width / 2.0f, position.y + width / 2.0f, width / 2.0f);
+        if(explodeDeltaTime == 0) collisionCircle.set(position.x + width / 2.0f, position.y + width / 2.0f, width / 2.0f);
 
 
     }
@@ -83,17 +92,50 @@ public class Enemy extends Scrollable {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
+
+        if(explodeDeltaTime > 0 && isRemoved == false){
+            if(AssetManager.explosionAnim.isAnimationFinished(explodeDeltaTime)) {
+                isRemoved = true;
+                this.remove();
+            }
+            explodeDeltaTime += Gdx.graphics.getDeltaTime();
+
+            batch.draw(
+                (TextureRegion) AssetManager.explosionAnim.getKeyFrame(explodeDeltaTime),
+                position.x,
+                position.y,
+                this.getOriginX(),
+                this.getOriginY(),
+                width,
+                height,
+                this.getScaleX(),
+                this.getScaleY(),
+                this.getRotation()
+            );
+
+            return;
+        }
+
         batch.draw(AssetManager.enemy[assetEnemy], position.x, position.y, this.getOriginX(), this.getOriginY(), width, height, this.getScaleX(), this.getScaleY(), this.getRotation());
     }
 
     // Retorna true si hi ha col·lisió
-    public boolean collides(Warrior nau) {
+    public boolean collides(Warrior warrior) {
 
-        if (position.x <= nau.getX() + nau.getWidth()) {
+        if (position.x <= warrior.getX() + warrior.getWidth()) {
             // Comprovem si han col·lisionat sempre i quan l'enemy estigui a la mateixa alçada que la warrior
-            return (Intersector.overlaps(collisionCircle, nau.getCollisionRect()));
+            return (Intersector.overlaps(collisionCircle, warrior.getCollisionRect()));
         }
         return false;
     }
 
+    // Retorna true si hi ha col·lisió
+    public boolean collides(Bullet bullet) {
+
+        if (position.x <= bullet.getX() + bullet.getWidth()) {
+            // Comprovem si han col·lisionat sempre i quan l'enemy estigui a la mateixa alçada que la bala
+            return (Intersector.overlaps(collisionCircle, bullet.getCollisionCircle()));
+        }
+        return false;
+    }
 }

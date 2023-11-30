@@ -14,12 +14,16 @@ public class AssetManager {
     // Sprite Sheet
     public static Texture sheet;
 
-    // Nau i fons
+    // Guerrer i fons
     public static TextureRegion warrior, background;
+    public static TextureRegion[] warriorDown, warriorUp;
+    public static Animation warriorDownAnim, warriorUpAnim;
+    public static TextureRegion[] warriorShot;
+    public static Animation warriorShotAnim;
 
     // Enemy
-    public static TextureRegion[] enemy, warriorDown, warriorUp;
-    public static Animation enemyAnim, warriorDownAnim, warriorUpAnim;
+    public static TextureRegion[] enemy;
+    public static Animation enemyAnim;
 
     // Explosió
     public static TextureRegion[] explosion;
@@ -28,6 +32,9 @@ public class AssetManager {
     // Sons
     public static Sound explosionSound;
     public static Music music;
+
+    // Bullet
+    public static TextureRegion bullet;
 
     // Font
     public static BitmapFont font;
@@ -84,6 +91,23 @@ public class AssetManager {
         // Fons de pantalla
         background = new TextureRegion(sheet, 0, 174, 384, 240);
         background.flip(false, true);
+
+        // Bullet
+        bullet = new TextureRegion(sheet, 0, 77, 14, 5);
+        background.flip(false, false);
+
+        // Warrior shot states
+        warriorShot = new TextureRegion[3];
+        warriorShot[0] = new TextureRegion(sheet, 96,1,18,28);
+        warriorShot[0].flip(false, true);
+        warriorShot[1] = new TextureRegion(sheet, 128,0,18,28);
+        warriorShot[1].flip(false, true);
+        warriorShot[2] = new TextureRegion(sheet, 160,65,18,27);
+        warriorShot[2].flip(false, true);
+
+        // Load Warrior animation
+        warriorShotAnim = new Animation(0.08f, warriorShot);
+        warriorShotAnim.setPlayMode(Animation.PlayMode.NORMAL);
 
         /******************************* Sounds *************************************/
 

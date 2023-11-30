@@ -1,10 +1,13 @@
 package cat.xtec.ioc.objects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import cat.xtec.ioc.helpers.AssetManager;
 import cat.xtec.ioc.utils.Methods;
 import cat.xtec.ioc.utils.Settings;
 
@@ -15,7 +18,8 @@ public class ScrollHandler extends Group {
 
     // Enemyes
     int numEnemys;
-    private ArrayList<Enemy> enemies;
+    public ArrayList<Enemy> enemies;
+    public ArrayList<Bullet> bullets;
 
     // Objecte Random
     Random r;
@@ -39,6 +43,7 @@ public class ScrollHandler extends Group {
 
         // Creem l'ArrayList
         enemies = new ArrayList<Enemy>();
+        bullets = new ArrayList<Bullet>();
 
         // Definim una mida aleatòria entre el mínim i el màxim
         float newSize = Methods.randomFloat(Settings.MIN_ENEMY, Settings.MAX_ENEMY) * 34;
@@ -85,6 +90,30 @@ public class ScrollHandler extends Group {
                 }
             }
         }
+
+        for(int i = bullets.size()-1; i >= 0; i--){
+            Bullet bullet = bullets.get(i);
+            for (int j = enemies.size()-1; j >= 0; j--){
+                Enemy enemy = enemies.get(j);
+                if(enemy.collides(bullet)){
+                    Gdx.app.log("Update Running", "Enemy hit!");
+
+                    // Remove Enemy
+                    float newSize = Methods.randomFloat(Settings.MIN_ENEMY, Settings.MAX_ENEMY) * 34;
+                    Enemy newEnemy = new Enemy(enemies.get(enemies.size() - 1).getTailX() + Settings.ENEMY_GAP, r.nextInt(Settings.GAME_HEIGHT - (int) newSize), newSize, newSize, Settings.ENEMY_SPEED);
+                    enemies.add(newEnemy);
+                    addActor(newEnemy);
+                    bullet.remove();
+
+                    // Create enemy exploding animation
+                    enemy.makeItExplode();
+
+                    // Remove enemy
+                    enemies.remove(j);
+                    bullets.remove(i);
+                }
+            }
+        }
     }
 
     public boolean collides(Warrior nau) {
@@ -99,18 +128,20 @@ public class ScrollHandler extends Group {
     }
 
     public void reset() {
-
         // Posem el primer enemy fora de la pantalla per la dreta
         enemies.get(0).reset(Settings.GAME_WIDTH);
         // Calculem les noves posicions de la resta d'enemies.
         for (int i = 1; i < enemies.size(); i++) {
-
             enemies.get(i).reset(enemies.get(i - 1).getTailX() + Settings.ENEMY_GAP);
-
         }
     }
 
-    public ArrayList<Enemy> getEnemys() {
+    public ArrayList<Enemy> getEnemies() {
         return enemies;
+    }
+
+    public void addBullet(Bullet bullet){
+        bullets.add(bullet);
+        addActor(bullet);
     }
 }

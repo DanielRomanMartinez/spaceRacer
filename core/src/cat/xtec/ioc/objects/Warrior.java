@@ -1,5 +1,6 @@
 package cat.xtec.ioc.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -17,6 +18,11 @@ public class Warrior extends Actor {
     public static final int WARRIOR_UP = 1;
     public static final int WARRIOR_DOWN = 2;
 
+    // Paràmetres de la bala
+    public static boolean isShooting = false;
+    public static float bulletDistance = 0;
+    public ScrollHandler scrollHandler;
+
     // Paràmetres de la warrior
     private Vector2 position;
     private int width, height;
@@ -25,12 +31,18 @@ public class Warrior extends Actor {
     private Rectangle collisionRect;
 
 
-
-    public Warrior(float x, float y, int width, int height) {
+    public Warrior(
+        float x,
+        float y,
+        int width,
+        int height,
+        ScrollHandler scrollHandler
+    ) {
 
         // Inicialitzem els arguments segons la crida del constructor
         this.width = width;
         this.height = height;
+        this.scrollHandler = scrollHandler;
         position = new Vector2(x, y);
 
         // Inicialitzem la warrior a l'estat normal
@@ -42,8 +54,6 @@ public class Warrior extends Actor {
         // Per a la gestio de hit
         setBounds(position.x, position.y, width, height);
         setTouchable(Touchable.enabled);
-
-
     }
 
 
@@ -72,6 +82,12 @@ public class Warrior extends Actor {
         setBounds(position.x, position.y, width, height);
 
 
+    }
+
+    public void shot(){
+        isShooting = true;
+        Bullet bullet = new Bullet(position.x + 18, (float)(position.y + 16.5),7, (float)2.5,50);
+        scrollHandler.addBullet(bullet);
     }
 
     // Getters dels atributs principals
@@ -108,6 +124,20 @@ public class Warrior extends Actor {
 
     // Obtenim el TextureRegion depenent de la posició de la warrior
     public TextureRegion getWarriorTexture() {
+
+
+        if(isShooting){
+            isShooting = false;
+            bulletDistance += Gdx.graphics.getDeltaTime();
+            return (TextureRegion)AssetManager.warriorShotAnim.getKeyFrame(bulletDistance);
+        } else if (bulletDistance > 0){
+            bulletDistance += Gdx.graphics.getDeltaTime();
+            if(AssetManager.warriorShotAnim.isAnimationFinished(bulletDistance)){
+                bulletDistance = 0;
+            } else {
+                return (TextureRegion)AssetManager.warriorShotAnim.getKeyFrame(bulletDistance);
+            }
+        }
 
         switch (direction) {
 

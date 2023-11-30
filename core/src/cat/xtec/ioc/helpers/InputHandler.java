@@ -59,9 +59,10 @@ public class InputHandler implements InputProcessor {
                 stageCoord = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
                 Actor actorHit = stage.hit(stageCoord.x, stageCoord.y, true);
                 if (actorHit != null) {
-                    Gdx.app.log("HIT", actorHit.getName());
-
+                    Gdx.app.log("The Warrior is shooting", actorHit.getName());
+                    warrior.shot();
                 }
+
                 break;
             // Si l'estat és GameOver tornem a iniciar el joc
             case GAMEOVER:

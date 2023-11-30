@@ -64,8 +64,14 @@ public class GameScreen implements Screen {
         batch = stage.getBatch();
 
         // Creem la nau i la resta d'objectes
-        warrior = new Warrior(Settings.WARRIOR_STARTX, Settings.WARRIOR_STARTY, Settings.WARRIOR_WIDTH, Settings.WARRIOR_HEIGHT);
         scrollHandler = new ScrollHandler();
+        warrior = new Warrior(
+            Settings.WARRIOR_STARTX,
+            Settings.WARRIOR_STARTY,
+            Settings.WARRIOR_WIDTH,
+            Settings.WARRIOR_HEIGHT,
+            scrollHandler
+        );
 
         // Afegim els actors a l'stage
         stage.addActor(scrollHandler);
@@ -103,7 +109,7 @@ public class GameScreen implements Screen {
         shapeRenderer.rect(warrior.getX(), warrior.getY(), warrior.getWidth(), warrior.getHeight());
 
         // Recollim tots els Enemy
-        ArrayList<Enemy> enemies = scrollHandler.getEnemys();
+        ArrayList<Enemy> enemies = scrollHandler.getEnemies();
         Enemy enemy;
 
         for (int i = 0; i < enemies.size(); i++) {

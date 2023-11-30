@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ public class GameScreen implements Screen {
 
     public enum GameState {
 
-        READY, RUNNING, GAMEOVER
+        READY, RUNNING, GAMEOVER, PAUSED
 
     }
 
@@ -48,7 +51,9 @@ public class GameScreen implements Screen {
     // Preparem el textLayout per escriure text
     private GlyphLayout textLayout;
 
-
+    // Pause button
+    ImageButton pauseButton;
+    Table tableControl;
 
     public GameScreen(Batch prevBatch, Viewport prevViewport) {
 
@@ -79,6 +84,16 @@ public class GameScreen implements Screen {
         // Donem nom a l'Actor
         warrior.setName("warrior");
 
+        // Afegim el botó de pause
+        tableControl = new Table();
+        pauseButton = new ImageButton(AssetManager.pauseButton);
+        tableControl.setPosition(Settings.GAME_WIDTH - 20,20);
+        stage.addActor(tableControl);
+        tableControl.add(pauseButton).size(20,20);
+
+        pauseButton.setBounds(30, 10,20,20);
+        pauseButton.setTouchable(Touchable.enabled);
+
         // Iniciem el GlyphLayout
         textLayout = new GlyphLayout();
         textLayout.setText(AssetManager.font, "Are you\nready?");
@@ -88,6 +103,18 @@ public class GameScreen implements Screen {
         // Assignem com a gestor d'entrada la classe InputHandler
         Gdx.input.setInputProcessor(new InputHandler(this));
 
+    }
+
+    public void pauseGame(){
+        AssetManager.music.setVolume(Settings.LOW_VOLUME);
+        currentState = GameState.PAUSED;
+    }
+    public void unpauseGame(){
+        currentState = GameState.RUNNING;
+        AssetManager.music.setVolume(Settings.NORMAL_VOLUME);
+    }
+    public boolean isGamePaused(){
+        return currentState == GameState.PAUSED;
     }
 
     private void drawElements() {

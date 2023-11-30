@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class AssetManager {
 
@@ -38,6 +40,9 @@ public class AssetManager {
 
     // Font
     public static BitmapFont font;
+
+    // Pause button
+    public static Drawable pauseButton;
 
     public static void load() {
 
@@ -108,6 +113,9 @@ public class AssetManager {
         // Load Warrior animation
         warriorShotAnim = new Animation(0.08f, warriorShot);
         warriorShotAnim.setPlayMode(Animation.PlayMode.NORMAL);
+
+        // Pause button
+        pauseButton = new TextureRegionDrawable(new TextureRegion(sheet,491,373,40,40));
 
         /******************************* Sounds *************************************/
 

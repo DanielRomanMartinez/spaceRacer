@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import cat.xtec.ioc.objects.Warrior;
 import cat.xtec.ioc.screens.GameScreen;
+import cat.xtec.ioc.utils.Settings;
 
 public class InputHandler implements InputProcessor {
 
@@ -49,24 +50,38 @@ public class InputHandler implements InputProcessor {
 
         switch (screen.getCurrentState()) {
             case READY:
-
-                // Si fem clic comencem el joc
                 screen.setCurrentState(GameScreen.GameState.RUNNING);
                 break;
-            case RUNNING:
-                previousY = screenY;
 
+            case RUNNING:
+
+                previousY = screenY;
                 stageCoord = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
-                Actor actorHit = stage.hit(stageCoord.x, stageCoord.y, true);
-                if (actorHit != null) {
-                    Gdx.app.log("The Warrior is shooting", actorHit.getName());
-                    warrior.shot();
+
+                Gdx.app.log("Current Stage Coord X...", String.valueOf(stageCoord.x));
+                Gdx.app.log("Current Stage Coord Y...", String.valueOf(stageCoord.y));
+
+                // Check if is pause button
+                Actor pauseButtonHit = stage.hit(stageCoord.x, stageCoord.y,true);
+                if(!screen.isGamePaused() && stageCoord.x >= Settings.GAME_WIDTH - 40 && pauseButtonHit != null){
+                    screen.pauseGame();
                 }
 
+                if(!screen.isGamePaused()) {
+                    Actor actorHit = stage.hit(stageCoord.x, stageCoord.y, true);
+                    if (actorHit != null) {
+                        Gdx.app.log("The Warrior is shooting", actorHit.getName());
+                        warrior.shot();
+                    }
+                }
                 break;
-            // Si l'estat és GameOver tornem a iniciar el joc
+
             case GAMEOVER:
                 screen.reset();
+                break;
+
+            case PAUSED:
+                screen.unpauseGame();
                 break;
         }
 

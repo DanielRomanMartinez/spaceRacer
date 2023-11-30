@@ -26,5 +26,9 @@ public class Settings {
     public static final int SCORE_INCREASE = 100; // s'incrementa en 100 cada cop que toca una moneda
     public static final int SCORE_SPEED = -175;
 
+    // Propietats per al pause
+    public static final float NORMAL_VOLUME = 2f;
+    public static final float LOW_VOLUME = 0.5f;
+
 
 }
